@@ -277,7 +277,7 @@ def get_guess_number():
         elif is_validated_number(user_input_number):
             return user_input_number
         else:
-            print("Wrong Input, Input again")
+            print("WRONG INPUT, Input again")
 
 
 def play_or_go():
@@ -288,7 +288,7 @@ def play_or_go():
         elif is_no(one_more_input):
             return False
         else:
-            print("Wrong Input, Input again")
+            print("WRONG INPUT, Input again")
 
 
 
