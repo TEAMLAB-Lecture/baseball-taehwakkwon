@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import random
-
+# import sys
+# sys.stdin = open('input.txt')
 
 def get_random_number():
     # Helper Function - 지우지 말 것
@@ -319,10 +320,10 @@ def main():
 
             strikes, balls = get_strikes_or_ball(user_input_number, random_number)
 
+            print(f'Strikes : {strikes} , Balls : {balls}')
             if strikes == 3:
                 break
-            else:
-                print(f'Strikes : {strikes} , Balls : {balls}')
+                
 
         if not play_or_go():
             return
