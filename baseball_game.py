@@ -123,8 +123,7 @@ def is_validated_number(user_input_number):
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당
     if is_digit(user_input_number) == True and is_between_100_and_999(user_input_number) == True and is_duplicated_number(user_input_number) == False:
         return True
-    else:
-        return False
+    return False
     # ==================================
     
 
@@ -149,7 +148,10 @@ def get_not_duplicated_three_digit_number():
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당
     # get_random_number() 함수를 사용하여 random number 생성
-    return int(''.join(map(str, random.sample(range(1, 10),3))))
+    number = str(get_random_number())
+    while is_duplicated_number(number):
+        number = str(get_random_number())
+    return number
     
     # ==================================
     
@@ -227,8 +229,7 @@ def is_yes(one_more_input):
     input2lower = one_more_input.lower()
     if input2lower == 'y' or input2lower == 'yes':
         return True
-    else:
-        return False
+    return False
     # ==================================
     
 
@@ -262,40 +263,47 @@ def is_no(one_more_input):
     input2lower = one_more_input.lower()
     if input2lower == 'n' or input2lower == 'no':
         return True
-    else:
-        return False
+    return False
     # ==================================
     
 
 def get_guess_number():
     while True:
-        user_input_number = input("Input guess number : ")
-        if user_input_number == 0:
-            #종료
+        user_input_number = input('Input guess number : ')
+        if user_input_number == '0':
             return False
             
         elif is_validated_number(user_input_number):
             return user_input_number
         else:
-            print("WRONG INPUT, Input again")
+            print("Wrong Input, Input again")
 
 
 def play_or_go():
-    while True:
-        one_more_input = input('You win, one more(Y/N)?')
-        if is_yes(one_more_input):
-            return True
-        elif is_no(one_more_input):
-            return False
-        else:
-            print("WRONG INPUT, Input again")
+    one_more_input = input('You win, one more(Y/N) ?')
+    while not is_yes(one_more_input) and not is_no(one_more_input) and one_more_input != "0":
+        print("Wrong Input, Input again")
+        one_more_input = input('You win, one more(Y/N) ?')
+    if one_more_input == "0" or is_no(one_more_input):
+        gameOver()
+        return False
+    else:
+        return True
+        # one_more_input = input('You win, one more(Y/N)?')
+        # if is_yes(one_more_input):
+        #     return True
+        # elif is_no(one_more_input) or one_more_input == "0":
+        #     gameOver()
+        #     return False
+        # else:
 
 
 
 
 def main():
-    # print('1111111111'*10)
-    while True:
+    flag = True
+    print("Play Baseball")
+    while flag:
         random_number = str(get_not_duplicated_three_digit_number())
         print("Random Number is : ", random_number)
         # ===Modify codes below=============
@@ -305,25 +313,27 @@ def main():
         while strikes < 3:
             user_input_number = get_guess_number()
             if user_input_number == False:
+                gameOver()
                 return
-            strikes, balls = get_strikes_or_ball(user_input_number, random_number)
-            if strikes == 3:
-                #win
-                res = play_or_go()
-                if res:
-                    break
-                else:
-                    return 
+            
 
+            strikes, balls = get_strikes_or_ball(user_input_number, random_number)
+
+            if strikes == 3:
+                break
             else:
                 print(f'Strikes : {strikes} , Balls : {balls}')
 
+        if not play_or_go():
+            return
+        
 
+def gameOver():
+    print("Thank you for using this program")
+    print("End of the Game")
     # ==================================
     
 
 if __name__ == "__main__":
-    print("Play Baseball")
     main()
-    print("Thank you for using this program")
-    print("End of the Game")
+    
