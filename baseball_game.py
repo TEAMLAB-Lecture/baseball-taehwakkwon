@@ -60,13 +60,13 @@ def is_between_100_and_999(user_input_number):
     # '''
     # ===Modify codes below=============
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당
-    try:
+    if user_input_number.isdecimal() and '.' not in user_input_number:
         user_input2int = int(user_input_number)
         if 100 <= user_input2int < 1000:
             return True
         else:
             return False
-    except TypeError:
+    else:
         return False
 
     # ==================================
