@@ -154,10 +154,8 @@ def get_not_duplicated_three_digit_number():
     # 조건에 따라 변환되어야 할 결과를 result 변수에 할당
     # get_random_number() 함수를 사용하여 random number 생성
     number = 0
-    for idx, number in enumerate(random.sample(range(10),3)):
-        number += (number*(10**idx))
     
-    return number
+    return int(''.join(map(str, random.sample(range(10),3))))
     # ==================================
     
 
